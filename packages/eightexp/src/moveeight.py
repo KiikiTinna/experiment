@@ -21,9 +21,15 @@ class SpeedPublisherNode(DTROS):
 
     def send_speed(self):
         while not rospy.is_shutdown():
-            faster = input('Moving streight w ')
+            faster = input('Rotate left l, rotate right r, move streight s')
             time = 1
-            if faster == 'w':
+            if faster == 'l':
+                self.msg.v = 0.0
+                self.msg.omega = 0.5
+            elif faster == 'r':
+                self.msg.v = 0.0
+                self.msg.omega = -0.5
+            elif faster == 's':
                 self.msg.v = 0.3
                 self.msg.omega = 0.0
             else:

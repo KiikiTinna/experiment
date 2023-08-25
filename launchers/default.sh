@@ -15,7 +15,8 @@ dt-launchfile-init
 # launching app
 
 #dt-exec python3 -m "seven.move"
-roslaunch sevenexp move.launch
+#roslaunch sevenexp move.launch
+roslaunch eightexp moveeight.launch
 
 # ----------------------------------------------------------------------------
 # YOUR CODE ABOVE THIS LINE

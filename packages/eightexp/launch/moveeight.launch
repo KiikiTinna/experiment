@@ -1,0 +1,9 @@
+
+<launch>
+
+  <group ns="luna">  
+
+     <node pkg="eightexp" type="moveeight.py" name="moveeight" output="screen"/>
+    
+  </group>
+</launch>
