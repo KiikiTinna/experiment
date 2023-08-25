@@ -1,0 +1,9 @@
+
+<launch>
+
+  <group ns="luna">  
+
+     <node pkg="sevenexp" type="move.py" name="move" output="screen"/>
+    
+  </group>
+</launch>
