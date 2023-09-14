@@ -19,33 +19,38 @@ class SpeedPublisherNode(DTROS):
         rospy.loginfo("Use CTRL + C to stop node")
 
 
+
     def send_speed(self):
         while not rospy.is_shutdown():
-            faster = input('Rotate left l, rotate right r, move streight s ')
-            time = 1
-            
+            faster = input('Input l for left, r for right ')
+            time = 0
+            rospy.sleep(3.0)  
             if faster == 'l':
-                self.msg.v = 0.0
-                self.msg.omega = 5.0
+                self.msg.v = 0.2
+                self.msg.omega = 0.7  
+                while time <= 300:
+                    self.pub.publish(self.msg)
+                    time = time + 1 
+                    rospy.loginfo(time)
+                    if time > 300:
+                        self.msg.v = 0.0
+                        self.pub.publish(self.msg)               
+
             elif faster == 'r':
-                self.msg.v = 0.0
-                self.msg.omega = -5.0
-            elif faster == 's':
-                self.msg.v = 0.3
-                self.msg.omega = 0.0
+                self.msg.v = 0.2
+                self.msg.omega = -0.7
+                while time <= 400:
+                    self.pub.publish(self.msg)  
+                    time = time + 1
+                    rospy.loginfo(time)
+                    if time > 400:
+                        self.msg.v = 0.0
+                        self.pub.publish(self.msg)
+
             else:
                 self.msg.v = 0.0
                 self.msg.omega = 0.0 
-
-            rospy.sleep(5.0)    
-            while time <= 90:
-                self.pub.publish(self.msg)
-                time = time + 1 
-                rospy.loginfo(time)
-                if time > 90:
-                 self.msg.v = 0.0
-                 self.msg.omega = 0.0
-                 self.pub.publish(self.msg)
+                self.pub.publish(self.msg) 
 
 
     def shutdown(self):
@@ -55,8 +60,9 @@ class SpeedPublisherNode(DTROS):
         self.msg.v = 0.0
         self.msg.omega = 0.0
         # Publish motion stop message
+
         self.pub.publish(self.msg)
-        rospy.sleep(1)
+        #rospy.sleep(1)
 
     
 if __name__ == '__main__':

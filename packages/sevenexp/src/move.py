@@ -22,28 +22,39 @@ class SpeedPublisherNode(DTROS):
     def send_speed(self):
         while not rospy.is_shutdown():
             faster = input('Moving streight w ')
-            time = 1
+            time = 0
+            rospy.sleep(3.0)
+
             if faster == 'w':
-                self.msg.v = 0.3
+                self.msg.v = 0.4
+                self.msg.omega = 0.0  
+                while time <= 600:
+                    self.pub.publish(self.msg)
+                    time = time + 1 
+                    rospy.loginfo(time)
+                    if time > 420:
+                        self.msg.v = -0.4
+                        self.pub.publish(self.msg) 
+                        time = time + 1 
+                        rospy.loginfo(time)
+                    elif time > 600:
+                        self.msg.v = 0.0
+                        self.pub.publish(self.msg) 
+
+            elif faster == 's':
+                self.msg.v = 0.4
                 self.msg.omega = 0.0
+                while time <= 450:
+                    self.pub.publish(self.msg)  
+                    time = time + 1
+                    rospy.loginfo(time)
+                    if time > 450:
+                        self.msg.v = 0.0
+                        self.pub.publish(self.msg)
             else:
                 self.msg.v = 0.0
                 self.msg.omega = 0.0 
-
-            rospy.sleep(3.0)    
-            while time <= 100:
-                self.pub.publish(self.msg)
-                time = time + 1 
-                rospy.loginfo(time)
-                if time > 100:
-                 self.msg.v = 0.0
-                 self.pub.publish(self.msg)
-                  
-            
-            #rospy.sleep(3.0)
-            #self.pub.publish(self.msg)
-            #rospy.sleep(3.0)
-            
+                self.pub.publish(self.msg) 
 
     def shutdown(self):
         rospy.loginfo("Shutdown initiated, stopping motors")
@@ -53,7 +64,7 @@ class SpeedPublisherNode(DTROS):
         self.msg.omega = 0.0
         # Publish motion stop message
         self.pub.publish(self.msg)
-        rospy.sleep(1)
+        #rospy.sleep(1)
 
     
 if __name__ == '__main__':
