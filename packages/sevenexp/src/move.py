@@ -21,36 +21,53 @@ class SpeedPublisherNode(DTROS):
 
     def send_speed(self):
         while not rospy.is_shutdown():
-            faster = input('Moving streight w ')
+            faster = input('Input movments linear w, rotate left l, rotate right r: ')
             time = 0
+            movment_times=0
             rospy.sleep(3.0)
-
+            
             if faster == 'w':
-                self.msg.v = 0.4
-                self.msg.omega = 0.0  
-                while time <= 600:
-                    self.pub.publish(self.msg)
-                    time = time + 1 
-                    rospy.loginfo(time)
-                    if time > 420:
-                        self.msg.v = -0.4
-                        self.pub.publish(self.msg) 
+                while movment_times <= 2:
+                    time = 0
+                    self.msg.v = 0.3
+                    self.msg.omega = 0.0
+                    while time <= 710:
+                        self.pub.publish(self.msg)
                         time = time + 1 
                         rospy.loginfo(time)
-                    elif time > 600:
-                        self.msg.v = 0.0
-                        self.pub.publish(self.msg) 
+                        if time > 350:
+                            self.msg.v = -0.3
+                            self.pub.publish(self.msg) 
+                            time = time + 1 
+                            rospy.loginfo(time)
+                    movment_times = movment_times + 1   
+                    rospy.loginfo(movment_times)
+                self.msg.v = 0.0
+                self.pub.publish(self.msg) 
 
-            elif faster == 's':
-                self.msg.v = 0.4
-                self.msg.omega = 0.0
-                while time <= 450:
+            elif faster == 'l':
+                self.msg.v = 0.0
+                self.msg.omega = 7.0
+                while time <= 1500:
                     self.pub.publish(self.msg)  
                     time = time + 1
                     rospy.loginfo(time)
-                    if time > 450:
+                    if time > 1500:
                         self.msg.v = 0.0
+                        self.msg.omega = 0.0
                         self.pub.publish(self.msg)
+
+            elif faster == 'r':
+                self.msg.v = 0.0
+                self.msg.omega = -7.0
+                while time <= 1800:
+                    self.pub.publish(self.msg)  
+                    time = time + 1
+                    rospy.loginfo(time)
+                    if time > 1800:
+                        self.msg.v = 0.0
+                        self.msg.omega = 0.0
+                        self.pub.publish(self.msg)           
             else:
                 self.msg.v = 0.0
                 self.msg.omega = 0.0 

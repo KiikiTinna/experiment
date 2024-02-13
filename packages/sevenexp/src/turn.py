@@ -26,8 +26,8 @@ class SpeedPublisherNode(DTROS):
             time = 0
             rospy.sleep(3.0)  
             if faster == 'l':
-                self.msg.v = 0.2
-                self.msg.omega = 0.7  
+                self.msg.v = 0.0
+                self.msg.omega = 7 
                 while time <= 300:
                     self.pub.publish(self.msg)
                     time = time + 1 
@@ -37,8 +37,8 @@ class SpeedPublisherNode(DTROS):
                         self.pub.publish(self.msg)               
 
             elif faster == 'r':
-                self.msg.v = 0.2
-                self.msg.omega = -0.7
+                self.msg.v = 0.0
+                self.msg.omega = -7
                 while time <= 400:
                     self.pub.publish(self.msg)  
                     time = time + 1
