@@ -1,0 +1,9 @@
+<launch>
+
+  <group ns="myroko">  
+
+    <node pkg="object_detection" type="see_ducks.py" name="see_ducks" output="screen"/>
+    
+  </group>
+
+</launch>

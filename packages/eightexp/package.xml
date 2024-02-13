@@ -4,7 +4,7 @@
   <description>
   This package is for the experiment 8
   </description>
-  <maintainer email="k.nikolovska@jacobs-university.de">Kristina N</maintainer>
+  <maintainer email="knikolovska@constructor.univerity">Kristina N</maintainer>
   <license>None</license>
 
   <buildtool_depend>catkin</buildtool_depend>
